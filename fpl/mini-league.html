@@ -12,7 +12,7 @@
 
         <script>
 
-            var url = 'https://silent-fire-4c34.inclind.workers.dev';
+            var url = 'https://silent-fire-4c34.inclind.workers.dev/';
 
             $('#getLeagueData').on('click', function(){
                 $('#loadingChart').slideDown();
@@ -537,7 +537,7 @@
 
                         componentDidMount() {
 
-                            fetch("https://silent-fire-4c34.inclind.workers.dev/api/bootstrap-static/", {
+                            fetch("https://silent-fire-4c34.inclind.workers.dev/https://fantasy.premierleague.com/api/bootstrap-static/", {
                                 headers: {
                                     'x-requested-with': 'testing',
                                 },
@@ -564,7 +564,7 @@
                                             this.historyArray = [];
                                             for (var i = 1; i < 38; i++) {
 
-                                                fetch("https://silent-fire-4c34.inclind.workers.dev/api/event/" + i + "/live/", {
+                                                fetch("https://silent-fire-4c34.inclind.workers.dev/https://fantasy.premierleague.com/api/event/" + i + "/live/", {
 
                                                     headers: {
                                                         'x-requested-with': 'testing',
@@ -652,7 +652,7 @@
                             this.state.playerArray = [];
                             let outfieldscore = '';
 
-                            const url = 'https://silent-fire-4c34.inclind.workers.dev';
+                            const url = 'https://silent-fire-4c34.inclind.workers.dev/';
 
                             let goalsScored = 0;
                             let assists = 0;
@@ -671,9 +671,9 @@
 
                             for (let b = 1; b <= this.state.historyData.length; b++) {
                                 Promise.all([
-                                    fetch("https://silent-fire-4c34.inclind.workers.dev/api/entry/" + teamId + "/"),
-                                    fetch("https://silent-fire-4c34.inclind.workers.dev/api/entry/" + teamId + "/history/"),
-                                    fetch("https://silent-fire-4c34.inclind.workers.dev/api/entry/" + teamId + "/event/" + b + "/picks/")
+                                    fetch("https://silent-fire-4c34.inclind.workers.dev/https://fantasy.premierleague.com/api/entry/" + teamId + "/"),
+                                    fetch("https://silent-fire-4c34.inclind.workers.dev/https://fantasy.premierleague.com/api/entry/" + teamId + "/history/"),
+                                    fetch("https://silent-fire-4c34.inclind.workers.dev/https://fantasy.premierleague.com/api/entry/" + teamId + "/event/" + b + "/picks/")
                                 ])
                                     //  fetch(url + "?csurl=https://fantasy.premierleague.com/api/entry/" + teamId +"/")
                                     .then(([res1, res2, res3]) => Promise.all([res1.json(), res2.json(), res3.json()]))
@@ -687,22 +687,25 @@
                                             let counter = 0;
                                             let location = b - 1;
                                             for (var q = 0; q < 11; q++) {
-                                                if (this.state.historyData[location].length) {
+                                                if (this.state.historyData[location] && this.state.historyData[location].length && res3.picks && res3.picks[q]) {
                                                     let thisPlayer = res3.picks[q].element - 1;
-                                                    let thisPlayerData = this.state.historyData[location][thisPlayer].stats;
+                                                    let playerEntry = this.state.historyData[location][thisPlayer];
+                                                    if (playerEntry && playerEntry.stats) {
+                                                        let thisPlayerData = playerEntry.stats;
 
-                                                    goalsScored += thisPlayerData.goals_scored;
-                                                    bps += thisPlayerData.bonus;
-                                                    conceded += thisPlayerData.goals_conceded;
-                                                    minutes += thisPlayerData.minutes;
-                                                    ownGoals += thisPlayerData.own_goals;
-                                                    penaltiesMissed += thisPlayerData.penalties_missed;
-                                                    penaltiesSaved += thisPlayerData.penalties_saved;
-                                                    redCards += thisPlayerData.red_cards;
-                                                    saves += thisPlayerData.saves;
-                                                    yellows += thisPlayerData.yellow_cards;
-                                                    cleanSheets += thisPlayerData.clean_sheets;
-                                                    assists += thisPlayerData.assists;
+                                                        goalsScored += thisPlayerData.goals_scored;
+                                                        bps += thisPlayerData.bonus;
+                                                        conceded += thisPlayerData.goals_conceded;
+                                                        minutes += thisPlayerData.minutes;
+                                                        ownGoals += thisPlayerData.own_goals;
+                                                        penaltiesMissed += thisPlayerData.penalties_missed;
+                                                        penaltiesSaved += thisPlayerData.penalties_saved;
+                                                        redCards += thisPlayerData.red_cards;
+                                                        saves += thisPlayerData.saves;
+                                                        yellows += thisPlayerData.yellow_cards;
+                                                        cleanSheets += thisPlayerData.clean_sheets;
+                                                        assists += thisPlayerData.assists;
+                                                    }
                                                 }
                                                 counter = counter + 1;
                                             }
