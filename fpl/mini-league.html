@@ -537,7 +537,7 @@
 
                         componentDidMount() {
 
-                            fetch("https://silent-fire-4c34.inclind.workers.dev/https://fantasy.premierleague.com/api/bootstrap-static/", {
+                            fetch("https://silent-fire-4c34.inclind.workers.dev/api/bootstrap-static/", {
                                 headers: {
                                     'x-requested-with': 'testing',
                                 },
@@ -564,7 +564,7 @@
                                             this.historyArray = [];
                                             for (var i = 1; i < 38; i++) {
 
-                                                fetch("https://silent-fire-4c34.inclind.workers.dev/https://fantasy.premierleague.com/api/event/" + i + "/live/", {
+                                                fetch("https://silent-fire-4c34.inclind.workers.dev/api/event/" + i + "/live/", {
 
                                                     headers: {
                                                         'x-requested-with': 'testing',
@@ -671,9 +671,9 @@
 
                             for (let b = 1; b <= this.state.historyData.length; b++) {
                                 Promise.all([
-                                    fetch("https://silent-fire-4c34.inclind.workers.dev/https://fantasy.premierleague.com/api/entry/" + teamId + "/"),
-                                    fetch("https://silent-fire-4c34.inclind.workers.dev/https://fantasy.premierleague.com/api/entry/" + teamId + "/history/"),
-                                    fetch("https://silent-fire-4c34.inclind.workers.dev/https://fantasy.premierleague.com/api/entry/" + teamId + "/event/" + b + "/picks/")
+                                    fetch("https://silent-fire-4c34.inclind.workers.dev/api/entry/" + teamId + "/"),
+                                    fetch("https://silent-fire-4c34.inclind.workers.dev/api/entry/" + teamId + "/history/"),
+                                    fetch("https://silent-fire-4c34.inclind.workers.dev/api/entry/" + teamId + "/event/" + b + "/picks/")
                                 ])
                                     //  fetch(url + "?csurl=https://fantasy.premierleague.com/api/entry/" + teamId +"/")
                                     .then(([res1, res2, res3]) => Promise.all([res1.json(), res2.json(), res3.json()]))
